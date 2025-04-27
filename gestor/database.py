@@ -1,7 +1,5 @@
 # gestor/database.py
 
-# gestor/database.py
-
 import csv
 import gestor.config as config
 
@@ -34,6 +32,16 @@ class Clientes:
             lista.append(cliente)
 
     @staticmethod
+    def guardar():
+        """
+        Guarda la lista de clientes actual en el archivo CSV.
+        """
+        with open(config.DATABASE_PATH, "w", newline="\n") as fichero:
+            writer = csv.writer(fichero, delimiter=";")
+            for cliente in Clientes.lista:
+                writer.writerow((cliente.dni, cliente.nombre, cliente.apellido))
+
+    @staticmethod
     def buscar(dni: str):
         for cliente in Clientes.lista:
             if cliente.dni == dni:
@@ -44,6 +52,7 @@ class Clientes:
     def crear(dni: str, nombre: str, apellido: str):
         cliente = Cliente(dni, nombre, apellido)
         Clientes.lista.append(cliente)
+        Clientes.guardar()
         return cliente
 
     @staticmethod
@@ -52,6 +61,7 @@ class Clientes:
             if cliente.dni == dni:
                 cliente.nombre = nombre
                 cliente.apellido = apellido
+                Clientes.guardar()
                 return cliente
         return None
 
@@ -59,5 +69,7 @@ class Clientes:
     def borrar(dni: str):
         for i, cliente in enumerate(Clientes.lista):
             if cliente.dni == dni:
-                return Clientes.lista.pop(i)
+                cliente_borrado = Clientes.lista.pop(i)
+                Clientes.guardar()
+                return cliente_borrado
         return None
