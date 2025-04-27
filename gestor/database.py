@@ -1,5 +1,3 @@
-
-
 # gestor/database.py
 
 class Cliente:
@@ -22,6 +20,13 @@ class Clientes:
     """
 
     lista = []
+
+    # Clientes de prueba
+    lista = [
+        Cliente("15J", "Marta", "Pérez"),
+        Cliente("48H", "Manolo", "López"),
+        Cliente("28Z", "Ana", "García")
+    ]
 
     @staticmethod
     def buscar(dni: str):
