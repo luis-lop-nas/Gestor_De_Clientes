@@ -1,5 +1,10 @@
 # gestor/database.py
 
+# gestor/database.py
+
+import csv
+import gestor.config as config
+
 class Cliente:
     """
     Representa un cliente con DNI, nombre y apellido.
@@ -21,12 +26,12 @@ class Clientes:
 
     lista = []
 
-    # Clientes de prueba
-    lista = [
-        Cliente("15J", "Marta", "Pérez"),
-        Cliente("48H", "Manolo", "López"),
-        Cliente("28Z", "Ana", "García")
-    ]
+    # Cargar clientes desde el archivo CSV
+    with open(config.DATABASE_PATH, newline="\n") as fichero:
+        reader = csv.reader(fichero, delimiter=";")
+        for dni, nombre, apellido in reader:
+            cliente = Cliente(dni, nombre, apellido)
+            lista.append(cliente)
 
     @staticmethod
     def buscar(dni: str):
