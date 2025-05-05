@@ -9,23 +9,9 @@ class MainWindow(tk.Tk):
         super().__init__()
         self.title("Gestor de Clientes")
         self.geometry("500x400")
-        self.configure(bg="#f4f4f4")
         self.build()
 
     def build(self):
-        style = ttk.Style(self)
-        style.theme_use("default")
-        style.configure("Treeview",
-                        background="#ffffff",
-                        foreground="#333333",
-                        rowheight=25,
-                        fieldbackground="#ffffff",
-                        font=("Segoe UI", 10))
-        style.configure("Treeview.Heading",
-                        background="#007acc",
-                        foreground="white",
-                        font=("Segoe UI", 10, "bold"))
-
         # Crear Treeview
         self.treeview = ttk.Treeview(self, columns=("DNI", "Nombre", "Apellido"), show="headings")
         self.treeview.heading("DNI", text="DNI")
@@ -34,21 +20,19 @@ class MainWindow(tk.Tk):
         self.treeview.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
 
         # Crear frame de botones
-        frame = tk.Frame(self, bg="#f4f4f4")
+        frame = tk.Frame(self)
         frame.pack(pady=10)
 
-        button_style = {"font": ("Segoe UI", 10), "bg": "#007acc", "fg": "white", "activebackground": "#005f99", "activeforeground": "white"}
-
-        btn_add = tk.Button(frame, text="Añadir Cliente", command=self.añadir_cliente, **button_style)
+        btn_add = tk.Button(frame, text="Añadir Cliente", command=self.añadir_cliente)
         btn_add.grid(row=0, column=0, padx=5)
 
-        btn_edit = tk.Button(frame, text="Modificar Cliente", command=self.modificar_cliente, **button_style)
+        btn_edit = tk.Button(frame, text="Modificar Cliente", command=self.modificar_cliente)
         btn_edit.grid(row=0, column=1, padx=5)
 
-        btn_delete = tk.Button(frame, text="Borrar Cliente", command=self.borrar_cliente, **button_style)
+        btn_delete = tk.Button(frame, text="Borrar Cliente", command=self.borrar_cliente)
         btn_delete.grid(row=0, column=2, padx=5)
 
-        btn_exit = tk.Button(frame, text="Salir", command=self.destroy, **button_style)
+        btn_exit = tk.Button(frame, text="Salir", command=self.destroy)
         btn_exit.grid(row=0, column=3, padx=5)
 
         # Cargar datos
